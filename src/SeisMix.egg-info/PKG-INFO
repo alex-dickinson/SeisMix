@@ -1,24 +1,21 @@
 Metadata-Version: 2.1
 Name: SeisMix
-Version: 0.0.1
+Version: 0.0.1+4.gf5f9ef4
 Summary: WHAT IS THE REASON YOU BUILD THIS PROJECT AND WHAT IT DOES
 Home-page: https://github.com/alex-dickinson/SeisMix
 Author: Alex Dickinson
 Author-email: nad38@cantab.ac.uk
 License: UNKNOWN
+Description: # Mixing codes for Kathy
+        
+        Make sure code works with example data from FSC
+        
+        Needs packages:
+        segyio: https://pypi.org/project/segyio/
+        
 Platform: UNKNOWN
 Classifier: Programming Language :: Python :: 3
 Classifier: License :: OSI Approved :: GNU General Public License v3 (GPLv3)
 Classifier: Operating System :: OS Independent
 Requires-Python: >=3.7
 Description-Content-Type: text/markdown
-License-File: LICENSE
-
-# Mixing codes for Kathy
-
-Make sure code works with example data from FSC
-
-Needs packages:
-segyio: https://pypi.org/project/segyio/
-
-
