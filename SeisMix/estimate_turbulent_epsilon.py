@@ -1,7 +1,8 @@
 import numpy as np
 from scipy import optimize
 
-from python_mixing_functions import chi_square_analysis
+# from python_mixing_functions import chi_square_analysis
+from SeisMix import chi_square_analysis
 
 import matplotlib.pyplot as plt
 
