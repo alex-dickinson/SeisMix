@@ -15,13 +15,13 @@ setuptools.setup(
     description="WHAT IS THE REASON YOU BUILD THIS PROJECT AND WHAT IT DOES",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url = "https://github.com/alex-dickinson/SeisMix",
+    url="https://github.com/alex-dickinson/SeisMix",
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
         "Operating System :: OS Independent",
     ],
-    python_requires='>=3.7',
+    python_requires=">=3.7",
     install_requires=requirements,
 )
