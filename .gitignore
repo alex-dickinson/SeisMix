@@ -1,3 +1,17 @@
 *.ipynb_checkpoints
 *.pyc
+pyproject.toml
+setup.cfg
+
+# byte-compiled files
 *__pycache__
+
+# build output
+build
+[_.]build
+*.egg-info
+
+# dist output
+dist
+
+versioneer.py
