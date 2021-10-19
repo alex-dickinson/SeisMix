@@ -26,12 +26,17 @@ bibliography: paper.bib
 
 # Summary
 
+Seismic reflection imaging provides a way to map oceanographic structure through 
+
+@Dickinson2017
+
 # Documentation and examples
 
 `SeisMix` is provided with [Jupyter](https://jupyter.org/) notebooks that demonstrate its use. The notebooks cover:
 - Estimation of diapycnal diffusivity from the spectral signal of turbulence
 - Estimation of diapyncal diffusivity from the spectral signal of internal waves
 - Fitting of the Garrett-Munk model spectrum to observed internal-wave spectra
+
 
 
 
