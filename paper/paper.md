@@ -26,7 +26,7 @@ bibliography: paper.bib
 
 # Summary
 
-text about SO
+text about SO more
 
 The forces on stars, galaxies, and dark matter under external gravitational
 fields lead to the dynamical evolution of structures in the universe. The orbits
