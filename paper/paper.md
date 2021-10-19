@@ -7,7 +7,7 @@ tags:
   - internal waves
   - seismic
 authors:
-  - name: Alex Dickinson[corresponding author]
+  - name: Alex Dickinson
     orcid: 0000-0001-7184-927X
     affiliation: "1, 2" # (Multiple affiliations must be quoted)
 affiliations:
@@ -37,9 +37,12 @@ Seismic reflection imaging provides a way to map oceanographic structure through
 # Documentation and examples
 
 `SeisMix` is provided with [Jupyter](https://jupyter.org/) notebooks that demonstrate its use. The notebooks cover:
-- Estimation of diapycnal diffusivity from the spectral signal of turbulence.
-- Estimation of diapyncal diffusivity from the spectral signal of internal waves.
-- Fitting of the Garrett-Munk model spectrum to observed internal-wave spectra.
+
+- Estimation of diapycnal diffusivity from the spectral signal of turbulence
+
+- Estimation of diapyncal diffusivity from the spectral signal of internal waves
+
+- Fitting of the Garrett-Munk model spectrum to observed internal-wave spectra
 
 
 
@@ -54,6 +57,6 @@ Figure sizes can be customized by adding an optional second parameter:
 
 # Acknowledgements
 
-Thanks to [Kathy Gunn](https://kathygunn.github.io/) for testing `SeisMix` and to [Bryn Pickering](https://www.brynpickering.com/) for helping build the distribution. This work was funded by the [Natural Environment Research Council](https://nerc.ukri.org/) and by the [North East Local Enterprise Partnership](https://www.northeastlep.co.uk/).
+Thanks to [Kathy Gunn](https://kathygunn.github.io/) for testing `SeisMix` and to [Bryn Pickering](https://www.brynpickering.com/) for helping build the distribution. Thanks also to Jody Klymak for generously providing access to his [MATLAB toolbox](jklymak.github.io/GarrettMunkMatlab) for calculating Garrett-Munk spectra. This work was funded by the [Natural Environment Research Council](https://nerc.ukri.org/) and by the [North East Local Enterprise Partnership](https://www.northeastlep.co.uk/).
 
 # References
