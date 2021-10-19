@@ -26,11 +26,15 @@ bibliography: paper.bib
 
 # Summary
 
-text about SO more
+# Documentation and examples
 
-# Mathematics
+`SeisMix` is provided with [Jupyter](https://jupyter.org/) notebooks that demonstrate its use. The notebooks cover:
+- Estimation of diapycnal diffusivity from the spectral signal of turbulence
+- Estimation of diapyncal diffusivity from the spectral signal of internal waves
+- Fitting of the Garrett-Munk model spectrum to observed internal-wave spectra
 
-# Figures
+
+
 
 <!-- Figures can be included like this:
 ![Caption for example figure.\label{fig:example}](figure.png)
@@ -41,6 +45,6 @@ Figure sizes can be customized by adding an optional second parameter:
 
 # Acknowledgements
 
-Thanks to Kathy Gunn for testing `SeisMix` and to Bryn Pickering for helping build the distribution.
+Thanks to [Kathy Gunn](https://kathygunn.github.io/) for testing `SeisMix` and to [Bryn Pickering](https://www.brynpickering.com/) for helping build the distribution. This work was funded by the [Natural Environment Research Council](https://nerc.ukri.org/) and by the [North East Local Enterprise Partnership](https://www.northeastlep.co.uk/).
 
 # References
