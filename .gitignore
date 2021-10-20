@@ -15,4 +15,7 @@ build
 # dist output
 dist
 
+# pip wheel directories
+pip-wheel-metadata
+
 versioneer.py
