@@ -6,13 +6,13 @@ import gsw
 import matplotlib.pyplot as plt
 
 
-from python_mixing_functions import four_component_model_subrange_fitting
-from python_mixing_functions import straight_line_fitting
-from python_mixing_functions import estimate_turbulent_epsilon
-from python_mixing_functions import estimate_internal_wave_epsilon
-from python_mixing_functions import compute_gm76_horizontal_spectra
-from python_mixing_functions import compute_gk91_horizontal_spectra
-from python_mixing_functions import gm_model_fitting
+from SeisMix import four_component_model_subrange_fitting
+from SeisMix import straight_line_fitting
+from SeisMix import estimate_turbulent_epsilon
+from SeisMix import estimate_internal_wave_epsilon
+from SeisMix import compute_gm76_horizontal_spectra
+from SeisMix import compute_gk91_horizontal_spectra
+from SeisMix import gm_model_fitting
 
 
 ###### Master wrapper script which calls other python modules to identify spectral subranges, fit straight lines to internal wave subrange, estimate values of epsilon from both turbulent and internal wave subranges, estimate values of K from values of epsilon ######

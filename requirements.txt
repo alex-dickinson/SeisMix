@@ -1,6 +1,5 @@
 numpy >= 1.19.0
-matplotlib >= 3.3.3
 mtspec >= 0.3.2
 scipy >= 1.5.1
 segyio >= 1.9.7
-jupyter
+gsw >= 3.4.0

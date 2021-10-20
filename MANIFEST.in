@@ -1,10 +1,10 @@
 include LICENSE
-include setup.cfg
 include MANIFEST.in
 include *.md
 include requirements.txt
-graft src/SeisMix
+graft SeisMix
 recursive-exclude * *.py[co]
-recursive-include SeisMix/examples/include versioneer.py
-include src/SeisMix/_version.py
-include versioneer.py
+include setup.py
+# recursive-include SeisMix/examples/include versioneer.py
+# include src/SeisMix/_version.py
+# include versioneer.py
