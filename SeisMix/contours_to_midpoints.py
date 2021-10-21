@@ -7,6 +7,7 @@ from scipy import signal
 from scipy.optimize import fmin
 
 import matplotlib.pyplot as plt
+
 # import pylab
 
 from matplotlib.font_manager import FontProperties

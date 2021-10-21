@@ -18,14 +18,13 @@ Requires-Dist: numpy (>=1.19.0)
 Requires-Dist: mtspec (>=0.3.2)
 Requires-Dist: scipy (>=1.5.1)
 Requires-Dist: segyio (>=1.9.7)
-Requires-Dist: gsw (>=3.4.0)
 Provides-Extra: all
-Requires-Dist: matplotlib (>=3.3.3) ; extra == 'all'
 Requires-Dist: jupyter ; extra == 'all'
+Requires-Dist: matplotlib (>=3.3.3) ; extra == 'all'
 Requires-Dist: gsw (>=3.4.0) ; extra == 'all'
 Provides-Extra: examples
-Requires-Dist: matplotlib (>=3.3.3) ; extra == 'examples'
 Requires-Dist: jupyter ; extra == 'examples'
+Requires-Dist: matplotlib (>=3.3.3) ; extra == 'examples'
 Requires-Dist: gsw (>=3.4.0) ; extra == 'examples'
 Provides-Extra: gsw
 Requires-Dist: gsw (>=3.4.0) ; extra == 'gsw'

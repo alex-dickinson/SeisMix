@@ -1,3 +1,20 @@
+"""
+This module is part of SeisMix.
+Copyright 2021 Alex Dickinson.
+Licensed under the GNU General Public License 3.0 (see LICENSE file).
+
+noise_analysis.py
+~~~~~~~~~~~
+Contains functions for:
+- Estimating signal-to-noise ratio for seismic image
+- 
+
+Required dependencies:
+- [`mtspec`](https://krischer.github.io/mtspec/)
+- [`numpy`](http://numpy.org)
+- [`scipy`](https://scipy.org)
+"""
+
 import numpy as np
 from scipy import signal
 from scipy import fftpack
@@ -5,17 +22,39 @@ from scipy.optimize import fmin
 from mtspec import mtspec
 import matplotlib.pyplot as plt
 
-# ----------------------------------------------------------------
 
+def estimate_signal_to_noise(data):
+    """
+    Estimate signal-to-noise ratio, SNR, for seismic image.
 
-def estimate_signal_to_noise(tx):
-    number_cmps = np.size(tx[0, :])
+    The SNR for two adjacent seismic traces is defined by
+
+    sqrt( |c| / |a -c|)
+
+    where c is maximum value of the cross-correlation between these traces, and a is the value of the zero-lag autocorrelation of the first trace.
+
+    Parameters
+    ----------
+    data : numpy.ndarray
+        2D numpy array listing seismic amplitude at every point in image
+
+    Returns
+    ----------
+    snr_median : int
+        median value of SNR for all pairs of adjacent traces within image
+    snr_mean : int
+        mean value of SNR for all pairs of adjacent traces within image
+    snr_stdev : int
+        standard deviation of SNR for all pairs of adjacent traces within image
+    """
+
+    number_cmps = np.size(data[0, :])
     snr_array = np.zeros(number_cmps - 1)
 
     for i in range(number_cmps - 1):
-        autocorr = np.correlate(tx[:, i], tx[:, i])
+        autocorr = np.correlate(data[:, i], data[:, i])
         autocorr.shape
-        crosscorr = np.correlate(tx[:, i], tx[:, i + 1])
+        crosscorr = np.correlate(data[:, i], data[:, i + 1])
         snr_array[i] = np.power((abs(crosscorr) / abs(autocorr - crosscorr)), 0.5)
     snr_median = np.median(snr_array)
     snr_mean = np.mean(snr_array)
