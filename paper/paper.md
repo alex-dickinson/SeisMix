@@ -26,7 +26,7 @@ bibliography: paper.bib
 
 # Summary
 
-Seismic reflection imaging provides a way to map oceanographic structure through 
+Marine seismic reflection data provide an unprecedented way to image changes in temperature and salinity within the oceanic water column.  
 
 @Dickinson2017
 
@@ -34,7 +34,30 @@ Seismic reflection imaging provides a way to map oceanographic structure through
 
 @Gunn2021
 
+# Statement of Need
+As of ? 2021, (25 in Dickinson and Gunn + more) English-language articles have presented results based on spectral analysis of seismic oceanographic images / tracked seismic reflections (see @Dickinson2022 for a review). The majority of these articles  Each group of researchers has developed its own software, and so it has been difficult to compare results from different studies. Many analyses have relied in part on closed-source, proprietary software that is not available to all researchers. 
+
+
+<!-- However, there exists no standard approach to spectral analysis, and so it has been difficult to compare results from different studies. Many analyses have relied on closed-source, proprietary software that is not available to all researchers.  -->
+
+
+
+`SeisMix` is an open-source Python package that provides a fully automated workflow for spectral analysis of seismic oceanographic images. It assigns rigorous uncertainties to all estimated values. Using the standardised approach of `SeisMix`, results from different datasets can be easily compared.
+
+
+ <!-- can standardise analysis of different datasets. -->
+
+The scripts underlying `SeisMix` have produced results for three published research papers (@Dickinson2017, @Dickinson2020, @Gunn2021).
+
 # Documentation and examples
+
+`SeisMix` contains modules for:
+- Reading input data in [SEG-Y](https://wiki.seg.org/wiki/SEG-Y) format
+- Assessing the spectral content of a seismic image
+- Tracking seismic reflections across an image
+- Computing horizontal-wavenumber spectra from tracked reflections
+- Estimating diapycnal diffusivity from computed spectra
+
 
 `SeisMix` is provided with [Jupyter](https://jupyter.org/) notebooks that demonstrate its use. The notebooks cover:
 
@@ -45,7 +68,8 @@ Seismic reflection imaging provides a way to map oceanographic structure through
 - Fitting of the Garrett-Munk model spectrum to observed internal-wave spectra
 
 
-
+I hope that `SeisMix` will be of use to the seismic oceanographic community and will encourage development of other standardised methods of analysis.
+Please report any errors to nad38@cantab.ac.uk.
 
 
 <!-- Figures can be included like this:
@@ -57,6 +81,6 @@ Figure sizes can be customized by adding an optional second parameter:
 
 # Acknowledgements
 
-Thanks to [Kathy Gunn](https://kathygunn.github.io/) for testing `SeisMix` and to [Bryn Pickering](https://www.brynpickering.com/) for helping build the distribution. Thanks also to Jody Klymak for generously providing access to his [MATLAB toolbox](jklymak.github.io/GarrettMunkMatlab) for calculating Garrett-Munk spectra. This work was funded by the [Natural Environment Research Council](https://nerc.ukri.org/) and by the [North East Local Enterprise Partnership](https://www.northeastlep.co.uk/).
+Thanks to [Kathy Gunn](https://kathygunn.github.io/) for testing `SeisMix` and to [Bryn Pickering](https://www.brynpickering.com/) for helping build the distribution. Thanks also to [Jody Klymak](https://ocean-physics.seos.uvic.ca/~jklymak/) for generously providing access to his [MATLAB toolbox](jklymak.github.io/GarrettMunkMatlab) for calculating Garrett-Munk spectra. Parts of `SeisMix` were inspired by the work of [Katy Sheen](https://geography.exeter.ac.uk/staff/index.php?web_id=Katy_Sheen) and Matthew Falder. Development of `SeisMix` was funded by the [Natural Environment Research Council](https://nerc.ukri.org/) and by the [North East Local Enterprise Partnership](https://www.northeastlep.co.uk/).
 
 # References
