@@ -35,7 +35,7 @@ Marine seismic reflection data provide an unprecedented way to image changes in 
 @Gunn2021
 
 # Statement of Need
-As of ? 2021, (25 in Dickinson and Gunn + more) English-language articles have presented results based on spectral analysis of seismic oceanographic images / tracked seismic reflections (see @Dickinson2022 for a review). The majority of these articles  Each group of researchers has developed its own software, and so it has been difficult to compare results from different studies. Many analyses have relied in part on closed-source, proprietary software that is not available to all researchers. 
+As of ? 2021, (25 in Dickinson and Gunn + more) English-language articles have presented results based on spectral analysis of seismic oceanographic images / tracked seismic reflections (see Dickinson2022 for a review). The majority of these articles  Each group of researchers has developed its own software, and so it has been difficult to compare results from different studies. Many analyses have relied in part on closed-source, proprietary software that is not available to all researchers. 
 
 
 <!-- However, there exists no standard approach to spectral analysis, and so it has been difficult to compare results from different studies. Many analyses have relied on closed-source, proprietary software that is not available to all researchers.  -->
