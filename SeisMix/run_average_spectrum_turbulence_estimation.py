@@ -17,7 +17,14 @@ from SeisMix import gm_model_fitting
 
 ###### Master wrapper script which calls other python modules to identify spectral subranges, fit straight lines to internal wave subrange, estimate values of epsilon from both turbulent and internal wave subranges, estimate values of K from values of epsilon ######
 def estimate_mixing(
-    avespec_array,
+    all_kx,
+            all_phi,
+            all_sigma_phi,
+            all_logkx,
+            all_log10_mean_linear,
+            all_log10_mean_linear_std,
+            all_mean_log10,
+            all_mean_log10_std,
     N_cph,
     sigma_N_cph,
     latitude_degrees,
@@ -59,20 +66,20 @@ def estimate_mixing(
     f_GM = f0
 
     ### Load data
-    all_kx = avespec_array[:, 0]
-    all_phi = avespec_array[:, 1]
-    all_sigma_phi = avespec_array[:, 2]
-    all_logkx = avespec_array[:, 3]
+    # all_kx = avespec_array[:, 0]
+    # all_phi = avespec_array[:, 1]
+    # all_sigma_phi = avespec_array[:, 2]
+    # all_logkx = avespec_array[:, 3]
 
     ### Specify whether to use log10 of spectra averaged in linear space or average spectrum averaged in log-space.
     if averaging_option == "log_mean_linear":
-        all_logphi = avespec_array[:, 4]
+        all_logphi = all_log10_mean_linear
         ### TODO Define logphi_std properly
-        all_logphi_std = avespec_array[:, 5]
+        all_logphi_std = all_log10_mean_linear_std
     elif averaging_option == "mean_log":
-        all_logphi = avespec_array[:, 6]
+        all_logphi = all_mean_log10
         ### TODO Define logphi_std properly
-        all_logphi_std = avespec_array[:, 7]
+        all_logphi_std = all_mean_log10_std
 
     ### Remove first 2 values to eliminate spectra roll-off - TODO make variable
     ### TODO Decide whether to take log10 of mean or mean of log10

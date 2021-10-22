@@ -32,26 +32,48 @@ import matplotlib.pyplot as plt
 
 
 def make_welch_average_spectrum(
-    temp_cmp_spacing_m,
+    cmp_spacing_m,
     average_spectrum_number_points,
-    temp_midpoints_dict,
-    temp_twt_min_s,
-    temp_twt_max_s,
+    all_midpoints_dict,
+    twt_min_s,
+    twt_max_s,
 ):
+    """
+    Estimate average spectrum using all tracked reflections.
+
+    Parameters
+    ----------
+    cmp_spacing_m : float
+        Distance between adjacent common midpoints in metres
+    average_spectrum_number_points : float
+        Length of average spectrum
+    all_midpoints_dict : dict
+        Dictionary containing all input midpoints
+    twt_min_s : float
+        Minimum two-way travel time (in seconds) for estimation of spectra. For a particular reflection, if the mean value of midpoints along the reflection >= twt_min_s, the spectrum will be computed
+    twt_max_s : float
+        Maximum two-way travel time (in seconds) for estimation of spectra. For a particular reflection, if the mean value of midpoints along the reflection <= twt_max_s, the spectrum will be computed
+
+    Returns
+    ----------
+    avespec_array : numpy.ndarray
+        Array containing cosine of the instantaneous phase angle within selected portion of image
+    """
+
 
     all_welch_spectra_dict = {}
     spectra_counter = 0
 
-    for temp_midpoints in temp_midpoints_dict:
-        temp_cmps = temp_midpoints_dict[temp_midpoints][:, 0]
-        temp_twts = temp_midpoints_dict[temp_midpoints][:, 1]
-        temp_twt_mean = np.mean(temp_twts)
+    for midpoints in all_midpoints_dict:
+        # cmps = all_midpoints_dict[midpoints][:, 0]
+        twts = all_midpoints_dict[midpoints][:, 1]
+        twt_mean = np.mean(twts)
 
-        if temp_twt_mean > temp_twt_min_s and temp_twt_mean < temp_twt_max_s:
-            detrended_twts = signal.detrend(temp_twts, type="linear")
-            fqs = 1.0 / temp_cmp_spacing_m
+        if twt_mean > twt_min_s and twt_mean < twt_max_s:
+            detrended_twts = signal.detrend(twts, type="linear")
+            fqs = 1.0 / cmp_spacing_m
 
-            ### TODO - change this depth conversion. Depth conversion using constant value of 750 m s^{-1} - could change this
+            ### TODO - change this depth conversion. Depth conversion using constant value of 750 m s^{-1} - could change this - see GoM scripts
             detrended_depths = 750.0 * detrended_twts
             average_spectrum_midpoints_length = average_spectrum_number_points
 
@@ -71,7 +93,7 @@ def make_welch_average_spectrum(
             slope_spectrum = np.power((2.0 * np.pi * kx), 2.0) * welch_spectrum
             logkx = np.log10(kx)
             logphi = np.log10(slope_spectrum)
-            all_welch_spectra_dict[temp_midpoints] = np.column_stack(
+            all_welch_spectra_dict[midpoints] = np.column_stack(
                 (kx, slope_spectrum, logkx, logphi)
             )
 
@@ -103,8 +125,7 @@ def make_welch_average_spectrum(
     mean_log10 = np.mean(all_detrended_logphi_array[:, 1::], axis=1)
     mean_log10_std = np.std(all_detrended_logphi_array[:, 1::], axis=1)
 
-    avespec_array = np.column_stack(
-        (
+    return (
             kx,
             average_slope_spectrum,
             std_slope_spectrum,
@@ -112,8 +133,5 @@ def make_welch_average_spectrum(
             log10_mean_linear,
             log10_mean_linear_std,
             mean_log10,
-            mean_log10_std,
+            mean_log10_std
         )
-    )
-
-    return avespec_array
