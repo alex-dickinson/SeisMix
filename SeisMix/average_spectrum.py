@@ -56,8 +56,17 @@ def make_welch_average_spectrum(
 
     Returns
     ----------
-    avespec_array : numpy.ndarray
-        Array containing cosine of the instantaneous phase angle within selected portion of image
+    kx : numpy.ndarray
+        1D array of horizontal-wavenumber values at which spectrum computed
+    average_slope_spectrum : numpy.ndarray
+    std_slope_spectrum : numpy.ndarray
+    logkx : numpy.ndarray
+        log of kx to the base 10
+    log10_mean_linear : numpy.ndarray
+    log10_mean_linear_std : numpy.ndarray
+    mean_log10 : numpy.ndarray
+    mean_log10_std : numpy.ndarray
+    
     """
 
 

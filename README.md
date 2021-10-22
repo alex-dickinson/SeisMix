@@ -80,19 +80,31 @@ __Optional dependencies__ for running the example Notebooks:
 
 
 
-## Maths
+# Maths
 
 All text currently copied from papers - need to vary
 
-### Noise analysis
+## Noise analysis
+
+### Estimation of signal-to-noise ratio
+
+`noise_analysis.estimate_signal_to_noise`
+
 analyze the frequency content of the seismic image  by defining the signal-to-noise ratio between two adjacent traces as
 $$
  \textrm{SNR} = \sqrt{\frac{|c|}{|a - c|}},
 $$
 where $c$ is the maximum value of the cross-correlation between these traces,  and $a$ is the value of the zero-lag autocorrelation of the first trace @Holbrook2013. The signal-to-noise ratio for a given panel  is gauged using  the median value of signal-to-noise ratios for  adjacent traces.
 
+### Computation of amplitude and phase spectra
 
-### Multitaper Fourier transform
+`noise_analysis.make_amplitude_and_phase_spectra`
+
+### Computation of direct data transform
+
+`noise_analysis.make_direct_data_transform`
+
+## Multitaper Fourier transform
 
 Multi-taper Fourier transforms are computed using the `mtspec` package.
 This package is used in the functions:
@@ -112,7 +124,9 @@ $$
 $$
 where $Q_{2K_{res}}(p)$ is the $p^{th}$ percentage point for the $\chi^2$ distribution with $2K_{res}$ degrees of freedom and $K_{res}$ is the multi-taper parameter described above.
 
-### Depth conversion
+
+
+## Depth conversion
 
 $\phi_{\tau}(k_x)$ is converted to a displacement power spectrum expressed in terms of depth, $\phi_{\xi}(k_x)$, by
 $$
@@ -297,3 +311,31 @@ $$
 $$
 where $A$ includes all terms that are independent of $\Gamma$.
 A similar analysis shows that, for $C_T$ in the range 0.3--0.5, assumption of constant $C_T = 0.4$ introduces uncertainties in $\log_{10}(K)$ of up to 0.1 logarithmic units.
+
+## Notation
+
+ Symbol | Description | Value | Unit | Dimension | Variable name
+---|---|---|---|---|---
+ $f$ | Coriolis parameter | | $\mathrm{s}^{-1}$ | $\mathrm{T}^{-1}$ | `f`
+ $g$ | Gravitational acceleration | 9.81 | $\mathrm{m}$ $\mathrm{s}^{-2}$ | $\mathrm{L}$ $\mathrm{T}^{-1}$ | `g`
+ $\hat{c}$ | Intercept fitted to identified turbulent spectral subranges |  |  | Dimensionless 
+ $C_T$ | Obukhov-Corrsin constant | 0.4 |  | Dimensionless | `CT`
+ $j_{res}$ | Parameter for multi-taper Fourier transforms |  |  | | `jres`
+ $K$ | Diapycnal (eddy) diffusivity |  | $\mathrm{m}^2$ $\mathrm{s}^{-1}$ | $\mathrm{L}^2$ $\mathrm{T}^{-1}$ | `K`
+  $K_{res}$ | Parameter for multi-taper Fourier transforms |  |  | | `Kres`
+ $k_x$ | Component of horizontal wavenumber in plane of seismic image |  | cpm |$\mathrm{L}^{-1}$ | `kx`
+ $\log_{10}(k_x)$ |  |  |  |  | `log_kx`
+ $\log_{10}(\phi_{\xi_x})$ |  |  |  |  | `log_phix`
+ $\left\langle \phi_{\xi_x} \right\rangle$ |  |  |  |  | `mean_phix`
+ $\sigma\left\langle \phi_{\xi_x} \right\rangle$ |  |  |  |  | `std_phix`
+ $\log_{10}\left\langle\phi_{\xi_x}\right\rangle$ |  |  |  |  | `log_mean_phix`
+ $\log_{10}(e) \frac{\sigma\left\langle\phi_{\xi_x}\right\rangle}{\left\langle\phi_{\xi_x}\right\rangle}$ |  |  |  |  | `std_log_mean_phix`
+ $\left\langle\log_{10}(\phi_{\xi_x})\right\rangle$ |  |  |  |  | `mean_log_phix`
+ $\sigma\left\langle\log_{10}(\phi_{\xi_x})\right\rangle$ |  |  |  |  | `std_log_phix`
+ $\Gamma$ | Turbulent flux coefficient | 0.2 |  | Dimensionless | `gamma`
+ $\epsilon$ | Dissipation rate of turbulent kinetic energy |  | $\mathrm{m}^2$ $\mathrm{s}^{-3}$ | $\mathrm{L}^2$ $\mathrm{T}^{-3}$ | `epsilon`
+ $\phi_\xi(k_x)$ | Power spectrum of vertical displacement |  | $\mathrm{m}^2$ $[\mathrm{cpm}]^{-1}$ | $\mathrm{L}^{3}$ | `phi`
+ $\phi_{\xi_x}(k_x)$ | Power spectrum of horizontal gradient of vertical displacement |  | $[\mathrm{cpm}]^{-1}$ | $\mathrm{L}$ | `phix`
+ $\left\langle \phi_{\xi_x} \right\rangle_p$ | Mean $\phi_{\xi_x}$ within seismically imaged pycnocline |  | $[\mathrm{cpm}]^{-1}$ | $\mathrm{L}$ 
+ $\phi_{\xi_x}^{\mathrm{DDT}}(k_x)$ | Direct data transform | | Arbitrary units 
+ $\phi_{\xi_x}^{GM}(k_x)$ | Garrett-Munk spectrum of horizontal gradient of vertical displacement | | [cpm]$^{-1}$ | $\mathrm{L}$ 
