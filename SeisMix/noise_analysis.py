@@ -6,8 +6,9 @@ Licensed under the GNU General Public License 3.0 (see LICENSE file).
 noise_analysis.py
 ~~~~~~~~~~~
 Contains functions for:
-- Estimating signal-to-noise ratio for seismic image
-- 
+- Estimating signal-to-noise ratio for a seismic image
+- Computing amplitude and phase spectra for a seismic image
+- Computing the direct data transform of a seismic image
 
 Required dependencies:
 - [`mtspec`](https://krischer.github.io/mtspec/)
@@ -63,15 +64,37 @@ def estimate_signal_to_noise(data):
     return (snr_median, snr_mean, snr_stdev)
 
 
-# ----------------------------------------------------------------
+def make_amplitude_and_phase_spectra(data, sampling_s, cmp_spacing_m):
+    """
+    Compute amplitude and phase spectra for seismic image.
 
+    Parameters
+    ----------
+    data : numpy.ndarray
+        2D numpy array listing seismic amplitude at every point in image
+    sampling_s : float
+        Sampling interval in seconds
+    cmp_spacing_m : float
+        Distance between adjacent common midpoints in metres
 
-def make_amplitude_and_phase_spectra(tx, sampling, cmp_spacing):
-    number_t = np.size(tx[:, 0])
-    number_x = np.size(tx[0, :])
+    Returns
+    ----------
+    f : numpy.ndarray
+        1D array of frequency values at which spectrum computed
+    kx : numpy.ndarray
+        1D array of horizontal-wavenumber values at which spectrum computed
+    amplitude_spectrum_sorted : numpy.ndarray
+        2D array containing values of amplitude spectrum
+    phase_spectrum_sorted : numpy.ndarray
+        2D array containing values of phase spectrum
+    kx_spectrum : numpy.ndarray
+        1D array containing horizontal-wavenumber spectrum (i.e. amplitude spectrum summed over frequency axis)
+    f_spectrum : numpy.ndarray
+        1D array containing frequency spectrum (i.e. amplitude spectrum summed over horizontal-wavenumber axis)
+    """
 
     ### Make fk spectrum of seismic data
-    fk = np.real(fftpack.fft2(tx))
+    fk = np.real(fftpack.fft2(data))
     amplitude_spectrum = np.abs(fk)
     phase_spectrum = np.angle(fk)
     number_k = np.size(fk[0, :])
@@ -85,13 +108,14 @@ def make_amplitude_and_phase_spectra(tx, sampling, cmp_spacing):
     phase_spectrum_sorted = np.fft.fftshift(phase_spectrum)
 
     ### Calculate kx values corresponding to wavenumber axis and f values corresponding to frequency axis
-    f = fftpack.fftfreq(number_f, d=float(sampling))
-    kx = fftpack.fftfreq(number_k, d=float(cmp_spacing))
+    f = fftpack.fftfreq(number_f, d=float(sampling_s))
+    kx = fftpack.fftfreq(number_k, d=float(cmp_spacing_m))
     index = np.argsort(kx)
     kx = kx[index]
     index = np.argsort(f)
     f = f[index]
 
+    ### Compute 1D wavenumber and frequency spectra by summing over opposite axes
     kx_spectrum = np.sum(amplitude_spectrum_sorted, axis=0)
     f_spectrum = np.sum(amplitude_spectrum_sorted, axis=1)
 
@@ -105,25 +129,50 @@ def make_amplitude_and_phase_spectra(tx, sampling, cmp_spacing):
     )
 
 
-# ----------------------------------------------------------------
+def make_direct_data_transform(data, cmp_spacing_m, jres, Kres):
+    """
+    Compute direct data transform for seismic image (i.e. compute horizontal-wavenumber spectrum at each depth within image and sum all spectra). See Holbrook et al. (2013). Spectra are computed using multitaper Fourier transforms (package mtspcec; see Thomson (1982)).
 
+    Parameters
+    ----------
+    data : numpy.ndarray
+        2D numpy array listing seismic amplitude at every point in image
+    cmp_spacing_m : float
+        Distance between adjacent common midpoints in metres
+    jres : int
+        Parameter controlling wavenumber resolution of multitaper Fourier transform
+    Kres : int
+        Parameter controlling power resolution of multitaper Fourier transform
 
-def make_direct_data_transform(tx, cmp_spacing, jres, K):
-    def make_level_spectra(tx, cmp_spacing, jres, K):
-        number_levels = np.size(tx[:, 0])
+    Returns
+    ----------
+    kx : numpy.ndarray
+        1D array of horizontal-wavenumber values at which direct data transform computed
+    ddt_power_spectrum : numpy.ndarray
+        1D array containing power of direct data transform at each horizontal wavenumber
+    ddt_power_spectrum_stdev : numpy.ndarray
+        1D array containing uncertainty of direct data transform at each horizontal wavenumber
+    ddt_slope_spectrum : numpy.ndarray
+        1D array containing direct data transform scaled by (2*pi*kx)^2. This transform emphasises the transition from the internal-wavenumber spectral subrange (scaled spectral slope <= 0) to the turbulent spectral subrange (scaled spectral subrange = +1/3)
+    ddt_slope_spectrum_stdev : numpy.ndarray
+        1D array containing uncertainty of scaled direct data transform at each horizontal wavenumber
+    """
+
+    def make_level_spectra(data, cmp_spacing_m, jres, Kres):
+        number_levels = np.size(data[:, 0])
         for i in range(number_levels):
-            level = tx[i, :]
+            level = data[i, :]
             power_spectrum, kx, jackknife, _, _ = mtspec(
                 data=level,
-                delta=float(cmp_spacing),
+                delta=float(cmp_spacing_m),
                 time_bandwidth=jres,
-                number_of_tapers=K,
+                number_of_tapers=Kres,
                 nfft=None,
                 statistics=True,
             )
             if i == 0:
                 power_spectra_array = np.zeros(
-                    [np.size(tx[:, 0]), np.size(power_spectrum)]
+                    [np.size(data[:, 0]), np.size(power_spectrum)]
                 )
             power_spectra_array[i, :] = power_spectrum
         ddt_power_spectrum = np.mean(power_spectra_array, axis=0)
@@ -137,13 +186,13 @@ def make_direct_data_transform(tx, cmp_spacing, jres, K):
         return (kx, ddt_power_spectrum, ddt_power_spectrum_stdev)
 
     kx, ddt_power_spectrum, ddt_power_spectrum_stdev = make_level_spectra(
-        tx, cmp_spacing, jres, K
+        data, cmp_spacing_m, jres, Kres
     )
     ddt_slope_spectrum = np.power((2.0 * np.pi * kx), 2.0) * ddt_power_spectrum
     ddt_slope_spectrum_stdev = (
         np.power((2.0 * np.pi * kx), 2.0) * ddt_power_spectrum_stdev
     )
-    #     Todo: when is correct point to average error?
+    #     TODO: when is correct point to average error?
 
     return (
         kx,

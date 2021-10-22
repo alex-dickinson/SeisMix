@@ -33,6 +33,8 @@ def read_segy(filename):
             1D numpy array listing all common midpoint numbers
     cmp_grid : numpy.ndarray
             2D numpy array listing common midpoint number at every point in seismic image. Shape is (np.size(twt_s_array), np.size(cmp_array))
+    sampling_s : float
+            Sampling interval in seconds
     twt_s_array : numpy.ndarray
             1D numpy array listing all two-way travel times in seconds
     twt_s_grid : numpy.ndarray
@@ -43,14 +45,14 @@ def read_segy(filename):
     with segyio.open(filename, ignore_geometry=True) as f:
         # Get basic attributes
         n_traces = f.tracecount
-        sampling_ms = segyio.tools.dt(f) / 1000
+        # sampling_ms = segyio.tools.dt(f) / 1000
         sampling_s = segyio.tools.dt(f) / 1e6
-        n_samples = f.samples.size
+        # n_samples = f.samples.size
         twt_ms_array = f.samples
         twt_s_array = twt_ms_array / 1e3
         data = f.trace.raw[:]  # Get all data into memory (could cause on big files)
         # Load headers
-        bin_headers = f.bin
+        # bin_headers = f.bin
 
         # To do - extract cmp_min from segy
         cmp_min = 1
@@ -58,7 +60,7 @@ def read_segy(filename):
         data = data.T
         cmp_grid, twt_s_grid = np.meshgrid(cmp_array, twt_s_array)
 
-    return (cmp_array, cmp_grid, twt_s_array, twt_s_grid, data)
+    return (cmp_array, cmp_grid, sampling_s, twt_s_array, twt_s_grid, data)
 
 
 def select_image_region(
