@@ -2,25 +2,47 @@ import numpy as np
 from scipy.signal import hilbert
 import matplotlib.pyplot as plt
 
-# --------------------------------------------------------------------------------------------------------
-
 
 def contour_reflections(
-    data_select_f, contour_level_f, cmp_grid_select_f, twt_s_grid_select_f, extent_f
+    data_select, contour_level, cmp_grid_select, twt_s_grid_select, extent
 ):
+    """
+    Convert seismic image to cosine of the instantaneous phase and draw contours at a constant value.
+
+    Parameters
+    ----------
+    data_select : numpy.ndarray
+        2D array containing seismic amplitudes within selected portion of image
+    contour_level : float
+        Value of cosine of the instantaneous phase to contour. Must lie between 0 and 1
+    cmp_grid_select : numpy.ndarray
+        2D array listing common midpoint number at every point in selected portion of seismic image
+    twt_s_grid_select : numpy.ndarray
+        2D array listing two-way travel time (in seconds) at every point in selected portion of seismic image
+    extent : list
+        List containing points defining boundaries of subregion of image within which contours are drawn
+
+    Returns
+    ----------
+    cosine_ipa : numpy.ndarray
+        2D array containing cosine of the instantaneous phase angle within selected portion of image
+    all_contours : list
+        List containing matplotlib.path.Path objects that define contours within subregion of image specified by `extent`
+    """
+
     # Convert to cosine of instantaneous phase angle
-    cosine_ipa_f = np.cos(np.unwrap(np.angle(hilbert(data_select_f))))
+    cosine_ipa = np.cos(np.unwrap(np.angle(hilbert(data_select))))
     # Remove outer traces of cosine of instantaneous phase so that contours are closed
-    cosine_ipa_f[:, 0] = 0
-    cosine_ipa_f[:, -1] = 0
+    cosine_ipa[:, 0] = 0
+    cosine_ipa[:, -1] = 0
 
     # Contour cosine of instantaneous phase angle at specified level
     cs = plt.contour(
-        cmp_grid_select_f,
-        twt_s_grid_select_f,
-        cosine_ipa_f,
-        levels=[-1 * contour_level_f, contour_level_f],
-        extent=extent_f,
+        cmp_grid_select,
+        twt_s_grid_select,
+        cosine_ipa,
+        levels=[-1 * contour_level, contour_level],
+        extent=extent,
         colors="yellow",
         linestyles="solid",
         linewidths=1,
@@ -30,12 +52,9 @@ def contour_reflections(
     # Extract list of contour arrays from LineCollection object
     positive_contours = cs.collections[0].get_paths()
     negative_contours = cs.collections[1].get_paths()
-    all_contours_f = positive_contours + negative_contours
+    all_contours = positive_contours + negative_contours
 
-    return (cosine_ipa_f, all_contours_f)
-
-
-# --------------------------------------------------------------------------------------------------------
+    return (cosine_ipa, all_contours)
 
 
 def contour_to_midpoints(
@@ -208,18 +227,39 @@ def contour_to_midpoints(
     return final_midpoints
 
 
-# --------------------------------------------------------------------------------------------------------
-
-
 def compute_midpoints(
-    all_contours_f, min_length, cmp_gap, contours_twt_gap, midpoints_twt_gap
+    all_contours, min_length, cmp_gap, contours_twt_gap, midpoints_twt_gap
 ):
+    """
+    Compute midpoints of contours computed by function `contour_reflections`. See figures in document ? for visualisation of strategy for computing midpoints.
+
+    Parameters
+    ----------
+    all_contours : list
+        List containing matplotlib.path.Path objects that define contours
+    min_length : int
+        Minimum length of computed midpoints to keep (in units of common midpoints)
+    cmp_gap : int
+        Maximum allowable horizontal gap (in units of common midpoints) between adjacent points along a particular computed midpoint. If tracked reflections are to be used for spectral analysis, cmp_gap should be set to 1
+    contours_twt_gap : float
+        Maximum allowable gap (in units of seconds) between the upper and lower surface of a single contour at a particular common midpoint. Midpoints will not be calculated at points at which the upper and lower surfaces of the contour are separated by a gap greater than contours_twt_gap
+    midpoints_twt_gap : float
+        Maximum allowable vertical gap (in units of seconds) between adjacent points along a particular computed midpoint
+
+    Returns
+    ----------
+    all_contours_dict : dict
+        Dictionary containing all input contours
+    all_midpoints_dict : dict
+        Dictionary containing all computed midpoints
+    """
+
     all_contours_dict = {}
     all_midpoints_dict = {}
 
     contour_counter = 0
 
-    for contour_path in all_contours_f:
+    for contour_path in all_contours:
         contour_counter = contour_counter + 1
         contour = contour_path.vertices  # Extract contour coordinates
         all_contours_dict[
@@ -240,30 +280,51 @@ def compute_midpoints(
     return (all_contours_dict, all_midpoints_dict)
 
 
-# --------------------------------------------------------------------------------------------------------
+def calculate_reflection_statistics(all_midpoints_dict, cmp_spacing_m):
+    """
+    Calculate statistics describing dataset of tracked reflections.
 
+    Parameters
+    ----------
+    all_midpoints_dict : dict
+        Dictionary containing midpoints of all tracked reflections
+    cmp_spacing_m : float
+        Distance between adjacent common midpoints in metres
 
-def calculate_reflection_statistics(all_midpoints_dict_f, cmp_spacing_m_f):
-    number_reflections_f = len(all_midpoints_dict_f)
-    reflection_length_array_f = np.zeros(number_reflections_f)
+    Returns
+    ----------
+    number_reflections : int
+        number of tracked reflections
+    reflection_length_array : numpy.ndarray
+        array of length number_reflections, with each element equal to the length of an individual reflection (in units of common midpoints)
+    overall_reflection_length_m : float
+        cumulative length of all tracked reflections in metres
+    mean_reflection_length_m : float
+        mean length of all tracked reflections in metres
+    std_reflection_length_m : float
+        standard deviation of lengths of all tracked reflections in metres
+    median_reflection_length_m : float
+        median length of all tracked reflections in metres
+    """
+
+    number_reflections = len(all_midpoints_dict)
+    reflection_length_array = np.zeros(number_reflections)
 
     index = 0
-    for i in all_midpoints_dict_f:
-        reflection_length_array_f[index] = np.size(all_midpoints_dict_f[i][:, 0])
+    for i in all_midpoints_dict:
+        reflection_length_array[index] = np.size(all_midpoints_dict[i][:, 0])
         index += 1
 
-    overall_reflection_length_m_f = cmp_spacing_m_f * np.sum(reflection_length_array_f)
-    mean_reflection_length_m_f = np.mean(cmp_spacing_m_f * reflection_length_array_f)
-    std_reflection_length_m_f = np.std(cmp_spacing_m_f * reflection_length_array_f)
-    median_reflection_length_m_f = np.median(
-        cmp_spacing_m_f * reflection_length_array_f
-    )
+    overall_reflection_length_m = cmp_spacing_m * np.sum(reflection_length_array)
+    mean_reflection_length_m = np.mean(cmp_spacing_m * reflection_length_array)
+    std_reflection_length_m = np.std(cmp_spacing_m * reflection_length_array)
+    median_reflection_length_m = np.median(cmp_spacing_m * reflection_length_array)
 
     return (
-        number_reflections_f,
-        reflection_length_array_f,
-        overall_reflection_length_m_f,
-        mean_reflection_length_m_f,
-        std_reflection_length_m_f,
-        median_reflection_length_m_f,
+        number_reflections,
+        reflection_length_array,
+        overall_reflection_length_m,
+        mean_reflection_length_m,
+        std_reflection_length_m,
+        median_reflection_length_m,
     )
