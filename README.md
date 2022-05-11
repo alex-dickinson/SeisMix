@@ -1,30 +1,43 @@
 <!---[![Chat on Gitter](https://img.shields.io/gitter/room/calliope-project/calliope.svg?style=flat-square)](https://gitter.im/calliope-project/calliope)--->
 
-[![Master branch build status](https://img.shields.io/azure-devops/build/calliope-project/371cbbaa-fa6b-4efb-9b23-c4283a8e33eb/1?style=flat-square)](https://dev.azure.com/calliope-project/calliope/_build?definitionId=1)
-[![Documentation build status](https://img.shields.io/readthedocs/calliope.svg?style=flat-square)](https://readthedocs.org/projects/calliope/builds/)
+<!-- [![Master branch build status](https://img.shields.io/azure-devops/build/calliope-project/371cbbaa-fa6b-4efb-9b23-c4283a8e33eb/1?style=flat-square)](https://dev.azure.com/calliope-project/calliope/_build?definitionId=1) -->
+<!-- [![Documentation build status](https://img.shields.io/readthedocs/calliope.svg?style=flat-square)](https://readthedocs.org/projects/calliope/builds/)
 [![Test coverage](https://img.shields.io/codecov/c/github/calliope-project/calliope?style=flat-square&token=b4fd170f0e7b43679a8bf649719e1cea)](https://codecov.io/gh/calliope-project/calliope)
 [![PyPI version](https://img.shields.io/pypi/v/calliope.svg?style=flat-square)](https://pypi.python.org/pypi/calliope)
 [![Anaconda.org/conda-forge version](https://img.shields.io/conda/vn/conda-forge/calliope.svg?style=flat-square&label=conda)](https://anaconda.org/conda-forge/calliope)
-[![JOSS DOI](https://img.shields.io/badge/JOSS-10.21105/joss.00825-green.svg?style=flat-square)](https://doi.org/10.21105/joss.00825)
+[![JOSS DOI](https://img.shields.io/badge/JOSS-10.21105/joss.00825-green.svg?style=flat-square)](https://doi.org/10.21105/joss.00825) -->
 
 
-# Mixing codes for Kathy
+<!-- # Mixing codes for Kathy -->
 
-Make sure code works with example data from FSC
+<!-- Make sure code works with example data from FSC -->
 
 Unused modules?:
 contours_to_midpoints_fs3d.py
 contours_to_midpoints.py
 
 
-install with pip:
+Installation with pip:
+
+Create a virtual environment (called env_SeisMix in this example):
+
+
+
+
+
 Make venv
+```bash 
 pip install .
+```
 
 To install optional packages for running example jupyter notebooks:
 ```bash 
 pip install .[examples]
 ```
+
+To create a Jupyter kernel for running the notebooks, use
+ipython kernel install --name "local-venv" --user
+
 
 Needs packages:
 segyio: https://pypi.org/project/segyio/ - this is currently used only in example notebook for reading data in. Build function for reading segy in
@@ -54,13 +67,13 @@ To add: functionality to read CTD profile for density etc
 
 ## Installation
 
-### Using pip
+<!-- ### Using pip
 
 Set up virtual pip environment.
 
 ```bash
 pip install SeisMix -r requirements.txt
-```
+``` -->
 
 
 
