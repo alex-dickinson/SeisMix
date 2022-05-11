@@ -12,9 +12,59 @@
 
 <!-- Make sure code works with example data from FSC -->
 
-Unused modules?:
+<!-- Unused modules?:
 contours_to_midpoints_fs3d.py
-contours_to_midpoints.py
+contours_to_midpoints.py -->
+
+
+Base dependencies:
+
+Python 3.8.12
+
+- [`matplotlib >= 3.3.3`](https://matplotlib.org/)
+- [`numpy >= 1.19.0`](http://numpy.org)
+- [`openpyxl >= 3.0.9`](https://openpyxl.readthedocs.io/en/stable/)
+- [`pandas >= 1.0.5`](https://pandas.pydata.org/)
+- [`scipy >= 1.5.1`](https://scipy.org)
+
+
+Extra dependencies for running example notebooks:
+
+- [`jupyter`](https://jupyter-notebook.readthedocs.io/en/stable/)
+- [`jupyterlab`](https://jupyterlab.readthedocs.io/en/stable/) 
+
+for running notebooks using either Jupyter Notebook or JupyterLab.
+
+
+To set up SeisMix, first create conda environment:
+
+```conda create --name NAME```
+
+Activate conda environment:
+
+```conda activate NAME```
+
+Install Python 3.8 and jupyter:
+
+```conda install python=3.8 jupyter```
+
+
+
+To install SeisMix with its base dependencies:
+
+Navigate to directory SeisMix
+
+
+
+```bash
+pip install .
+```
+
+To install extra dependencies for running example notebooks:
+
+```bash
+pip install .[examples]
+```
 
 
 Installation with pip:
@@ -22,10 +72,6 @@ Installation with pip:
 Create a virtual environment (called env_SeisMix in this example):
 
 
-
-
-
-Make venv
 ```bash 
 pip install .
 ```
