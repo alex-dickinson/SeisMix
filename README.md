@@ -210,7 +210,7 @@ Rewrite text as from Dickinson (2020): Four parameters control the form of the m
 
 $$ M_1 = \sum_{i=0}^M \left\[\left\[\log_{10}(\phi_{\xi_x}^m) \right\]_{i} - \left\[\log_{10}( \left\langle \phi_{\xi_x} \right\rangle_p ) \right]_{i} \right\]^2 $$
 
-$$M\_{A1} = \\sum\_{i=1}^D \\left\[\\left\[\\log\_{10}(\\phi\_{\\xi_x}^m) \\right\]\_i - \\left\[\\log\_{10}( \\left\\langle \\phi\_{\\xi_x} \\right\\rangle_p ) \\right\]\_i\\right\]^2,$$
+$$M\_1 = \\sum\_{i=1}^D \\left\[\\left\[\\log\_{10}(\\phi\_{\\xi_x}^m) \\right\]\_i - \\left\[\\log\_{10}( \\left\\langle \\phi\_{\\xi_x} \\right\\rangle_p ) \\right\]\_i\\right\]^2,$$
 
 
 where $\phi_{\xi_x}^m$ is the model and $M$ is the number of points in the power spectrum. Best-fitting values of $a$, $b$, $c$ and $d$ are found by minimizing $M_1$ using Powell's conjugate direction algorithm @Powell1964.
@@ -232,7 +232,7 @@ Based on such   observations, a revised version  of the {\sf GM72} model propose
 
 These low-wavenumber subranges are fitted with straight lines using least squares linear regression. A  standard error, $\sigma_{\hat{m}}$, on the fitted gradient, $\hat{m}$, is estimated from the covariance matrix. $\sigma_{\phi_\xi}$ is taken as the error on the individual data points. The weighted mean, $\bar{m}_w $, of the fitted gradients is given by
 
-$$ \bar{m}_w = \frac{\sum\limits_{i=0}^M \hat{m}_i (\sigma_{\phi_\xi})_i^{-2}}{\sum\limits_{i=0}^M (\sigma_{\phi_\xi})_i^{-2}}, $$
+$$ \bar{m}\_w = \frac{\sum\limits_{i=0}^M \hat{m}_i (\sigma_{\phi_\xi})\_i^{-2}}{\sum\limits_{i=0}^M (\sigma_{\phi_\xi})\_i^{-2}}, $$
 
 where $M$ is the total number of low-wavenumber subranges.
 Wrong: We note that there is no accepted definition of the standard error on the weighted mean, and so we quote the standard deviation of the sample as the error.
@@ -261,7 +261,7 @@ $$ \epsilon = \epsilon_r \left( \frac{\bar{N}}{N_r} \right)^2 \frac{f \ \mathrm{
 where $\bar{N}$ is the local mean stable stratification, $f$ is the local Coriolis parameter, $R_\omega$ is the local shear-strain ratio, $R_{\omega_{GM}} = 3$ cph is the shear-strain ratio of the GM wave field, and $\hat{E}$ is a measure of the energy of the observed wave field \citep{Polzin2014}. $\hat{E}$ is evaluated in terms of horizontal gradient spectra using 
 \label{eq:energy_level_slope}
 
-$$ \hat{E} = \frac{R_\omega}{R_{\omega_{GM}}} \hat{\phi}_{\xi_x} = \frac{R_\omega}{R_{\omega_{GM}}} \frac{\left\langle \phi_{\xi_x} \right\rangle}{\left\langle \phi_{\xi_x}^{GM} \right\rangle}, $$
+$$ \hat{E} = \frac{R_\omega}{R_{\omega_{GM}}} \hat{\phi}\_{\xi_x} = \frac{R_\omega}{R_{\omega_{GM}}} \frac{\left\langle \phi_{\xi_x} \right\rangle}{\left\langle \phi_{\xi_x}^{GM} \right\rangle}, $$
 
 where $\phi_{\xi_x}^{GM}$ is the  GM spectrum for the  local value of the buoyancy frequency, $\bar{N}$. Angular brackets denote  integration over the wavenumber range of the internal-wave subrange.
 
