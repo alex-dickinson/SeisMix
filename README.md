@@ -147,11 +147,13 @@ All text currently copied from papers - need to vary
 
 ### Estimation of signal-to-noise ratio
 
+$x = a + b^2$
+
 `noise_analysis.estimate_signal_to_noise`
 
 analyze the frequency content of the seismic image  by defining the signal-to-noise ratio between two adjacent traces as
 $$
- \textrm{SNR} = \sqrt{\frac{|c|}{|a - c|}},
+ SNR = \sqrt{\frac{|c|}{|a - c|}},
 $$
 where $c$ is the maximum value of the cross-correlation between these traces,  and $a$ is the value of the zero-lag autocorrelation of the first trace @Holbrook2013. The signal-to-noise ratio for a given panel  is gauged using  the median value of signal-to-noise ratios for  adjacent traces.
 
