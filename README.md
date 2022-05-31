@@ -210,6 +210,9 @@ Rewrite text as from Dickinson (2020): Four parameters control the form of the m
 
 $$ M_1 = \sum_{i=0}^M \left\[\left\[\log_{10}(\phi_{\xi_x}^m) \right\]_{i} - \left\[\log_{10}( \left\langle \phi_{\xi_x} \right\rangle_p ) \right]_{i} \right\]^2 $$
 
+$$M\_{A1} = \\sum\_{i=1}^D \\left\[\\left\[\\log\_{10}(\\phi\_{\\xi_x}^m) \\right\]\_i - \\left\[\\log\_{10}( \\left\\langle \\phi\_{\\xi_x} \\right\\rangle_p ) \\right\]\_i\\right\]^2,$$
+
+
 where $\phi_{\xi_x}^m$ is the model and $M$ is the number of points in the power spectrum. Best-fitting values of $a$, $b$, $c$ and $d$ are found by minimizing $M_1$ using Powell's conjugate direction algorithm @Powell1964.
 
 
