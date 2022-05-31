@@ -147,13 +147,11 @@ All text currently copied from papers - need to vary
 
 ### Estimation of signal-to-noise ratio
 
-$x = a + b^2$
-
 `noise_analysis.estimate_signal_to_noise`
 
 analyze the frequency content of the seismic image  by defining the signal-to-noise ratio between two adjacent traces as
 
-$$ SNR = \sqrt{\frac{|c|}{|a - c|}}, $$
+$$ \textrm{SNR} = \sqrt{\frac{|c|}{|a - c|}}, $$
 
 where $c$ is the maximum value of the cross-correlation between these traces,  and $a$ is the value of the zero-lag autocorrelation of the first trace @Holbrook2013. The signal-to-noise ratio for a given panel  is gauged using  the median value of signal-to-noise ratios for  adjacent traces.
 
@@ -180,9 +178,9 @@ $$
 where $k_N$ is the Nyquist wavenumber, $N$ is the number of data points in the input signal, and $\Delta x$ is the cmp spacing.
 
 Following @Percival1993, the width of the $100(1-2p) \%$ confidence interval for $\log_{10}\left(\phi_{\tau}(k_x)\right)$ is given by
-$$
- \log_{10}(e) \log_{10}\left( \frac{Q_{2K_{res}}(1-p)}{Q_{2K_{res}}(p)} \right),
-$$
+
+$$ \log_{10}(e) \log_{10}\left( \frac{Q_{2K_{res}}(1-p)}{Q_{2K_{res}}(p)} \right), $$
+
 where $Q_{2K_{res}}(p)$ is the $p^{th}$ percentage point for the $\chi^2$ distribution with $2K_{res}$ degrees of freedom and $K_{res}$ is the multi-taper parameter described above.
 
 
