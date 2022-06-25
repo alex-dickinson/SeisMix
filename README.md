@@ -17,7 +17,7 @@ contours_to_midpoints_fs3d.py
 contours_to_midpoints.py -->
 
 
-Base dependencies:
+<!-- Base dependencies:
 
 Python 3.8.12
 
@@ -25,18 +25,42 @@ Python 3.8.12
 - [`numpy >= 1.19.0`](http://numpy.org)
 - [`openpyxl >= 3.0.9`](https://openpyxl.readthedocs.io/en/stable/)
 - [`pandas >= 1.0.5`](https://pandas.pydata.org/)
-- [`scipy >= 1.5.1`](https://scipy.org)
+- [`scipy >= 1.5.1`](https://scipy.org) -->
 
 
-Extra dependencies for running example notebooks:
+<!-- Extra dependencies for running example notebooks:
 
 - [`jupyter`](https://jupyter-notebook.readthedocs.io/en/stable/)
 - [`jupyterlab`](https://jupyterlab.readthedocs.io/en/stable/) 
 
-for running notebooks using either Jupyter Notebook or JupyterLab.
+for running notebooks using either Jupyter Notebook or JupyterLab. -->
 
+`SeisMix` is a Python package for estimating diapycnal diffusivity from seismic oceanographic images. It has been used in four publications:
 
-To set up SeisMix, first create conda environment:
+- Dickinson, A., White, N. J., & Caulfield, C. P. (2017). Spatial variation of diapycnal diffusivity estimated from seismic imaging of internal wave field, Gulf of Mexico. Journal of Geophysical Research: Oceans, 122, 9827– 9854. https://doi.org/10.1002/2017JC013352
+- Dickinson, A., White, N. J., & Caulfield, C. P. (2020). Time-lapse acoustic imaging of mesoscale and fine-scale variability within the Faroe-Shetland Channel. Journal of Geophysical Research: Oceans, 125, e2019JC015861. https://doi.org/10.1029/2019JC015861
+- Gunn KL, Dickinson A, White NJ and Caulfield CP (2021) Vertical Mixing and Heat Fluxes Conditioned by a Seismically Imaged Oceanic Front. Front. Mar. Sci. 8:697179. doi: https://doi.org/10.3389/fmars.2021.697179
+- Xiao, Wuxin, & Zhou Meng (2022). Turbulent Heat Fluxes in a Mediterranean Eddy Quantified Using Seismic and Hydrographic Observations. Journal of Marine Science and Engineering, 10, 720. doi: https://doi.org/10.3390/jmse10060720
+
+I am currently improving `SeisMix`, including adding example notebooks, for submission to the Journal of Open Source Software. If you use `SeisMix` in the meantime, please cite it as:
+
+Dickinson, A. (_in prep_). SeisMix: A Python package for estimating diapycnal diffusivity and the form of the internal wave field from seismic oceanographic images.
+
+### Installation
+
+`SeisMix` uses the following packages:
+
+- [`mtspec`](https://krischer.github.io/mtspec/)
+- [`numpy`](http://numpy.org)
+- [`scipy`](https://scipy.org)
+- [`segyio`](https://segyio.readthedocs.io/en/1.5.3/index.html)
+
+__Optional dependencies__ for running the example Notebooks:
+- [`gsw`](https://github.com/TEOS-10/GSW-python)
+- [`jupyter`](https://jupyter.org/)
+- [`matplotlib`](https://matplotlib.org/)
+
+To set up `SeisMix`, first create conda environment:
 
 ```conda create --name NAME```
 
@@ -50,9 +74,9 @@ Install Python 3.8 and jupyter:
 
 
 
-To install SeisMix with its base dependencies:
+To install `SeisMix` with its base dependencies:
 
-Navigate to directory SeisMix
+Navigate to directory `SeisMix`
 
 
 
@@ -85,7 +109,7 @@ To create a Jupyter kernel for running the notebooks, use
 ipython kernel install --name "local-venv" --user
 
 
-Needs packages:
+<!-- Needs packages:
 segyio: https://pypi.org/project/segyio/ - this is currently used only in example notebook for reading data in. Build function for reading segy in
 
 Dependencies:
@@ -109,9 +133,9 @@ To add: functionality to read CTD profile for density etc
 
 ``numpy``
 
-`test`
+`test` -->
 
-## Installation
+<!-- ## Installation
 
 <!-- ### Using pip
 
@@ -123,23 +147,11 @@ pip install SeisMix -r requirements.txt
 
 
 
-### Dependencies
-
-SeisMix uses the following packages:
-
-- [`mtspec`](https://krischer.github.io/mtspec/)
-- [`numpy`](http://numpy.org)
-- [`scipy`](https://scipy.org)
-- [`segyio`](https://segyio.readthedocs.io/en/1.5.3/index.html)
-
-__Optional dependencies__ for running the example Notebooks:
-- [`gsw`](https://github.com/TEOS-10/GSW-python)
-- [`jupyter`](https://jupyter.org/)
-- [`matplotlib`](https://matplotlib.org/)
 
 
 
-# Maths
+
+<!-- # Maths
 
 All text currently copied from papers - need to vary
 
@@ -154,8 +166,8 @@ analyze the frequency content of the seismic image  by defining the signal-to-no
 $$ \textrm{SNR} = \sqrt{\frac{|c|}{|a - c|}}, $$
 
 where $c$ is the maximum value of the cross-correlation between these traces,  and $a$ is the value of the zero-lag autocorrelation of the first trace @Holbrook2013. The signal-to-noise ratio for a given panel  is gauged using  the median value of signal-to-noise ratios for  adjacent traces.
-
-### Computation of amplitude and phase spectra
+ -->
+<!-- ### Computation of amplitude and phase spectra
 
 `noise_analysis.make_amplitude_and_phase_spectra`
 
@@ -195,9 +207,9 @@ where $v$ is the value of a regionally averaged profile of sound speed at the av
 
 $$ \sigma_{\phi_\xi}^2 = \sigma_{\phi_\tau}^2 + \left(2 \log_{10}(e) \frac{\sigma_v}{v} \right)^2,$$
 
-where $\sigma_v$ is the standard deviation of $v$. An error of $\pm$30~m~s$^{-1}$ in sound speed corresponds to $\frac{\sigma_v}{v} \sim 0.02$, and so errors in sound speed have an insignificant effect.
+where $\sigma_v$ is the standard deviation of $v$. An error of $\pm$30~m~s$^{-1}$ in sound speed corresponds to $\frac{\sigma_v}{v} \sim 0.02$, and so errors in sound speed have an insignificant effect. -->
 
-### Conversion to horizontal-gradient spectra
+<!-- ### Conversion to horizontal-gradient spectra
 
 Displacement power spectra, $\phi_{\xi}(k_x)$, are converted to spectra of the horizontal gradient of vertical displacement, $\phi_{\xi_x}(k_x)$, using 
 
@@ -326,9 +338,9 @@ over the  range of integration for $k_x$.
 
 ## Turbulent subrange
 
-Instead, these observed turbulent subranges  could belong to a regime of layered anisotropic stratified turbulence \citep[LAST;][]{Riley2008, Falder2016}. Since there must be continuity between  LAST and  inertial-convective regimes, the dissipation rate of turbulent kinetic energy, $\epsilon$, can be estimated using the inertial-convective parametrisation for a passive scalar \citep{Sreenivasan1996}. If turbulent motions affect temperature in the same way as they affect density, this parametrization can be expressed as
+Instead, these observed turbulent subranges  could belong to a regime of layered anisotropic stratified turbulence \citep[LAST;][]{Riley2008, Falder2016}. Since there must be continuity between  LAST and  inertial-convective regimes, the dissipation rate of turbulent kinetic energy, $\epsilon$, can be estimated using the inertial-convective parametrisation for a passive scalar \citep{Sreenivasan1996}. If turbulent motions affect temperature in the same way as they affect density, this parametrization can be expressed as -->
 
-$$ \left\langle \phi_{\xi_x} \right\rangle_p = \frac{4\pi\Gamma}{N^2} C_T \epsilon^{2/3} (2\pi k_x)^{+1/3}, $$
+<!-- $$ \left\langle \phi_{\xi_x} \right\rangle_p = \frac{4\pi\Gamma}{N^2} C_T \epsilon^{2/3} (2\pi k_x)^{+1/3}, $$
 
 where $\Gamma$ is the turbulent flux coefficient and $C_T$ is the Obukhov-Corrsin constant \citep{Klymak2007turbulence, Falder2016}. Diapycnal diffusivity, $K$, is estimated from $\epsilon$ using the Osborn relationship
 
@@ -365,7 +377,9 @@ where $A$ includes all terms that are independent of $\Gamma$.
 A similar analysis shows that, for $C_T$ in the range 0.3--0.5, assumption of constant $C_T = 0.4$ introduces uncertainties in $\log_{10}(K)$ of up to 0.1 logarithmic units.
 
 ## Notation
-
+ -->
+ 
+ <!--
  Symbol | Description | Value | Unit | Dimension | Variable name
 ---|---|---|---|---|---
  $f$ | Coriolis parameter | | $\mathrm{s}^{-1}$ | $\mathrm{T}^{-1}$ | `f`
@@ -391,3 +405,6 @@ A similar analysis shows that, for $C_T$ in the range 0.3--0.5, assumption of co
  $\left\langle \phi_{\xi_x} \right\rangle_p$ | Mean $\phi_{\xi_x}$ within seismically imaged pycnocline |  | $[\mathrm{cpm}]^{-1}$ | $\mathrm{L}$ 
  $\phi_{\xi_x}^{\mathrm{DDT}}(k_x)$ | Direct data transform | | Arbitrary units 
  $\phi_{\xi_x}^{GM}(k_x)$ | Garrett-Munk spectrum of horizontal gradient of vertical displacement | | [cpm]$^{-1}$ | $\mathrm{L}$ 
+ 
+ 
+ -->
